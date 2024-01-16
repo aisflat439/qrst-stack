@@ -13,6 +13,7 @@
     "vitest": "^1.1.3"
   },
   "dependencies": {
+    "@tanstack/react-router-server": "^1.4.3",
     "@trpc/server": "^10.45.0",
     "zod": "^3.22.4"
   }

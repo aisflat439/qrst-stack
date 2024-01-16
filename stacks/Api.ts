@@ -7,8 +7,10 @@ export function Api({ stack }: StackContext) {
   const api = new ApiGateway(stack, "api", {
     customDomain:
       stack.stage === "prod" ? "api.sevensingletables.com" : undefined,
+    // prettier-ignore
     routes: {
-      "GET /trpc/{proxy+}": "packages/functions/src/trpc.handler",
+      "GET /":               "packages/functions/src/web-router.handler",
+      "GET /trpc/{proxy+}":  "packages/functions/src/trpc.handler",
       "POST /trpc/{proxy+}": "packages/functions/src/trpc.handler",
     },
   });
