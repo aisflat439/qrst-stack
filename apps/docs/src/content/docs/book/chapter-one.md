@@ -46,7 +46,7 @@ We now need to update our project to use this new app. In the Stacks directory c
 ```ts
 import { AstroSite, StackContext } from "sst/constructs";
 
-export async function MarketingStack({ stack }: StackContext) {
+export async function Marketing({ stack }: StackContext) {
   // Create the Astro site
   const site = new AstroSite(stack, "MarketingSite", {
     path: "apps/marketing",
@@ -71,11 +71,55 @@ git commit -m "inital commit"
 
 Then choose this section in the repo. I always forget this command. The `SaaS` I'm working on while writing this book is called `anesthesia` so this is what the code looks like to me. Yours should be similar, but your name and your repo name.
 
+For now we'll make one straightforward edit to your Astro site in `index.astro`, your apps landing page.
+
+```ts
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Welcome to [Your app name here].">
+  <main>
+    <h1>My SaaS does cool stuff</h1>
+    <p>
+      Harder than building this, is actually selling it to real customers.
+    </p>
+  </main>
+</Layout>
+
+```
+
 ```
 git remote add origin git@github.com:aisflat439/anesthesia.git
 git branch -M main
 git push -u origin main
 ```
+
+## Get it running
+
+Update your `sst.config.ts` to this so that you can build some resources for local development.
+
+```ts
+import { SSTConfig } from "sst";
+import { API } from "./stacks/MyStack";
+import { Marketing } from "./stacks/Marketing";
+
+export default {
+  config(_input) {
+    return {
+      name: "your-app-name",
+      region: "us-east-1",
+    };
+  },
+  stacks(app) {
+    app.stack(API).stack(Marketing);
+  },
+} satisfies SSTConfig;
+```
+
+Now fire off `pnpm sst dev` in your console. You'll need to create a personal stage for this. In the future each developer on your team will have a stack of their own for local development. For now, you don't have any customers but this step is relatively key for now.
+
+In the intro, you set up an IAM user. When some day you sell your SaaS application, you'll be able to transfer the main account, all the children accounts will be able to be disabled, deleted, whatever. With no impact to production. If you had a contractor that you wanted to revoke access to, you delete them. Presto. They're gone.
 
 ## Get a Domain and launch
 
