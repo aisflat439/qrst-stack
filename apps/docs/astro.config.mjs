@@ -19,6 +19,8 @@ export default defineConfig({
             { label: "Intro", link: "/book/intro/" },
             { label: "Chapter One", link: "/book/chapter-one/" },
             { label: "Chapter Two", link: "/book/chapter-two/" },
+            { label: "Chapter Three", link: "/book/chapter-three/" },
+            { label: "Chapter Four", link: "/book/chapter-four/" },
           ],
         },
         {
